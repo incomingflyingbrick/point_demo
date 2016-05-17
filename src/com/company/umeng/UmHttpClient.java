@@ -54,8 +54,13 @@ public class UmHttpClient {
         HttpURLConnection urlConnection;
         OutputStream outputStream;
 
-            urlConnection = (HttpURLConnection) new URL(SERVER_ADDRESS+subUrl).openConnection();
+            urlConnection = (HttpURLConnection) new URL((SERVER_ADDRESS+subUrl).trim()).openConnection();
+            urlConnection.setReadTimeout(SOCKET_TIME_OUT);
+            urlConnection.setConnectTimeout(CONNECTION_TIME_OUT);
             setRequestMethod(httpMethod, urlConnection);
+            if(ACCESS_TOKEN!=null){
+                urlConnection.setRequestProperty("accesstoken",ACCESS_TOKEN);
+            }
             if (HttpMethod.POST == httpMethod || HttpMethod.PUT == httpMethod) {
                 outputStream = new DataOutputStream(urlConnection.getOutputStream());
                 String dataString = makePostBody(data);
@@ -96,9 +101,9 @@ public class UmHttpClient {
         } else {
             System.out.println(TAG+" umeng app key is empty or null");
         }
-        if (accessToken != null && !accessToken.equals("")) {
-            sb.append("&access_token=" + ACCESS_TOKEN);
-        }
+//        if (accessToken != null && !accessToken.equals("")) {
+//            sb.append("&access_token=" + ACCESS_TOKEN);
+//        }
         if(method.equals(HttpMethod.GET) || method.equals(HttpMethod.DELETE)){
             if (data != null && !data.isEmpty()) {
                 sb.append(makeUrl(data));
