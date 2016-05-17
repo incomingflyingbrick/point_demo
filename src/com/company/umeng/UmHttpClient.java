@@ -141,10 +141,10 @@ public class UmHttpClient {
             System.out.println(httpMethod.name().toUpperCase()+ ":" + subUrl + ":" + (System.currentTimeMillis() / 1000 + ":" + sortParaMeter(data) + ":" + UmHttpClient.APP_SECRECT));
             result = MD5Util.getMD5(httpMethod.name().toUpperCase()+ ":" + subUrl + ":" + (System.currentTimeMillis() / 1000 + ":" + sortParaMeter(data) + ":" + UmHttpClient.APP_SECRECT));
         }else{
-            System.out.println(httpMethod.name().toUpperCase()+ ":" + subUrl + ":" + (System.currentTimeMillis() / 1000 + ":" + sortParaMeter(data) + ":" + UmHttpClient.APP_SECRECT));
+            System.out.println(httpMethod.name().toUpperCase()+ ":" + subUrl + ":" + (System.currentTimeMillis() / 1000 + ":" + UmHttpClient.APP_SECRECT));
             result = MD5Util.getMD5(httpMethod.name().toUpperCase() + ":" + subUrl + ":" + System.currentTimeMillis() / 1000 + ":" + UmHttpClient.APP_SECRECT);
         }
-        return result;
+        return result.trim();
     }
 
     private void setRequestMethod(HttpMethod httpMethod, HttpURLConnection urlConnection) throws ProtocolException {
@@ -190,7 +190,7 @@ public class UmHttpClient {
         } catch (JSONException e){
             System.out.println("Umeng access token request error:"+e.getMessage());
         }
-        return stringData;
+        return stringData.trim();
     }
 
 
@@ -288,7 +288,6 @@ public class UmHttpClient {
 
     private String sortParaMeter(Map<String,Object> map){
         StringBuilder stringBuilder = new StringBuilder();
-//        Uri.Builder builder = new Uri.Builder();
         TreeMap<String,Object> stringObjectTreeMap = new TreeMap<String, Object>(map);
 
         for(Map.Entry<String,Object> entry:stringObjectTreeMap.entrySet()){
@@ -309,7 +308,7 @@ public class UmHttpClient {
         }
         //Log.d("para",stringBuilder.toString());
 //        stringBuilder.append(builder);
-        return stringBuilder.toString();
+        return stringBuilder.toString().trim();
     }
 
 }

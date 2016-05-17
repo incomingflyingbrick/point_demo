@@ -19,10 +19,8 @@ public class AESUtils {
         if(null==plaintext){
             throw new RuntimeException("data is null");
         }
-
         // 加密
         String encrypt = encrypt(plaintext,appSecret);
-
         return  encrypt;
     }
 
